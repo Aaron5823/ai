@@ -1,0 +1,31 @@
+import json
+import random
+
+def load_data(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    return data
+
+def get_response(user_input, data):
+    user_input = user_input.lower()
+    if user_input in data:
+        responses = data[user_input]
+        return random.choice(responses)
+    else:
+        return "I'm sorry, I don't understand that."
+
+def main():
+    training_data_file = "training_data.json"
+    data = load_data(training_data_file)
+    print("AI: Hello! How can I assist you today?")
+
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == 'exit':
+            print("AI: Goodbye!")
+            break
+        response = get_response(user_input, data)
+        print("AI:", response)
+
+if __name__ == "__main__":
+    main()
